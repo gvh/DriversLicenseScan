@@ -93,7 +93,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     func found(code: String) {
         let dl = DriversLicense(rawString: code)
         dl.parseDL()
-        dl.printDL()
+        performSegue(withIdentifier: "ShowDriversLicense", sender: dl)
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -103,4 +103,12 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDriversLicense" {
+            let vc = segue.destination as! DriversLicenseViewController
+            vc.driversLicense = sender as? DriversLicense
+        }
+    }
+
 }

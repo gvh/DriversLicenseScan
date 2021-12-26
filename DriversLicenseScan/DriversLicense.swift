@@ -151,15 +151,11 @@ class DriversLicense {
 
         let charSeq1 = rawDataLine.prefix(1)
         let char1 = String(charSeq1)
-        print("first character: \(char1)")
         return char1 == "D"
     }
 
     private func parseDL(_ rawDataLine: Substring) {
         let rawDataLineString: String = String(rawDataLine)
-
-        print("parsing: \(rawDataLineString)")
-
         let codeStart = rawDataLineString.startIndex
         let codeEnd = rawDataLineString.index(rawDataLineString.startIndex, offsetBy: 2)
         let code = rawDataLineString[codeStart...codeEnd]
@@ -170,7 +166,6 @@ class DriversLicense {
         let value = rawDataLineString[valueStart..<valueEnd]
         let valueString = String(value)
 
-        print("Code: \(codeString)  value: \(valueString)")
         let parser = parseMaster[codeString]
         if parser != nil {
             parser! (String(value))
@@ -368,35 +363,39 @@ class DriversLicense {
     }
 
     private func parseLimitedDurationDocumentIndicator(dataLine: String) {
+        self.LimitedDurationDocumentIndicator = dataLine
     }
 
     private func parseWeightPounds(dataLine: String) {
+        self.WeightPounds = Int(dataLine)
     }
 
     private func parseWeightKilograms(dataLine: String) {
+        self.WeightKilograms = Int(dataLine)
     }
 
     private func parseUnder18UntilDate(dataLine: String) {
+        // MMDDCCYY or CCYYMMDD
+        self.Under18UntilDate = parseDateString(dataLine: dataLine)
     }
-    // MMDDCCYY or CCYYMMDD
 
     private func parseUnder19UntilDate(dataLine: String) {
+        // MMDDCCYY or CCYYMMDD
+        self.Under19UntilDate = parseDateString(dataLine: dataLine)
     }
-    // MMDDCCYY or CCYYMMDD
 
     private func parseUnder21UntilDate(dataLine: String) {
+        // MMDDCCYY or CCYYMMDD
+        self.Under21UntilDate = parseDateString(dataLine: dataLine)
     }
-    // MMDDCCYY or CCYYMMDD
 
     private func parseOrganDonorIndicator(dataLine: String) {
+        // 1
+        self.OrganDonorIndicator = dataLine == "1"
     }
-    // 1
 
     private func parseVeteranIndicator(dataLine: String) {
-    }
-    // 1
-
-    func printDL() {
-        print("Vehicle Class: \(self.vehicleClass ?? "")")
+        // 1
+        self.VeteranIndicator = dataLine == "1"
     }
 }
