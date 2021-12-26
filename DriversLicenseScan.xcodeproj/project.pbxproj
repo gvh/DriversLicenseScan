@@ -16,7 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5F92708D2603881F00908B16 /* dlscan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dlscan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5F92708D2603881F00908B16 /* DriversLicenseScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DriversLicenseScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9270902603881F00908B16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F9270922603881F00908B16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5F9270942603881F00908B16 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -40,7 +40,7 @@
 		5F9270842603881F00908B16 = {
 			isa = PBXGroup;
 			children = (
-				5F92708F2603881F00908B16 /* dlscan */,
+				5F92708F2603881F00908B16 /* DriversLicenseScan */,
 				5F92708E2603881F00908B16 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,12 +48,12 @@
 		5F92708E2603881F00908B16 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5F92708D2603881F00908B16 /* dlscan.app */,
+				5F92708D2603881F00908B16 /* DriversLicenseScan.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		5F92708F2603881F00908B16 /* dlscan */ = {
+		5F92708F2603881F00908B16 /* DriversLicenseScan */ = {
 			isa = PBXGroup;
 			children = (
 				5F9270902603881F00908B16 /* AppDelegate.swift */,
@@ -64,15 +64,15 @@
 				5F92709B2603882000908B16 /* LaunchScreen.storyboard */,
 				5F92709E2603882000908B16 /* Info.plist */,
 			);
-			path = dlscan;
+			path = DriversLicenseScan;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5F92708C2603881F00908B16 /* dlscan */ = {
+		5F92708C2603881F00908B16 /* DriversLicenseScan */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 5F9270A12603882000908B16 /* Build configuration list for PBXNativeTarget "dlscan" */;
+			buildConfigurationList = 5F9270A12603882000908B16 /* Build configuration list for PBXNativeTarget "DriversLicenseScan" */;
 			buildPhases = (
 				5F9270892603881F00908B16 /* Sources */,
 				5F92708A2603881F00908B16 /* Frameworks */,
@@ -82,9 +82,9 @@
 			);
 			dependencies = (
 			);
-			name = dlscan;
+			name = DriversLicenseScan;
 			productName = dlscan;
-			productReference = 5F92708D2603881F00908B16 /* dlscan.app */;
+			productReference = 5F92708D2603881F00908B16 /* DriversLicenseScan.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -101,7 +101,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 5F9270882603881F00908B16 /* Build configuration list for PBXProject "dlscan" */;
+			buildConfigurationList = 5F9270882603881F00908B16 /* Build configuration list for PBXProject "DriversLicenseScan" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -114,7 +114,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				5F92708C2603881F00908B16 /* dlscan */,
+				5F92708C2603881F00908B16 /* DriversLicenseScan */,
 			);
 		};
 /* End PBXProject section */
@@ -322,7 +322,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5F9270882603881F00908B16 /* Build configuration list for PBXProject "dlscan" */ = {
+		5F9270882603881F00908B16 /* Build configuration list for PBXProject "DriversLicenseScan" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5F92709F2603882000908B16 /* Debug */,
@@ -331,7 +331,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5F9270A12603882000908B16 /* Build configuration list for PBXNativeTarget "dlscan" */ = {
+		5F9270A12603882000908B16 /* Build configuration list for PBXNativeTarget "DriversLicenseScan" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				5F9270A22603882000908B16 /* Debug */,
