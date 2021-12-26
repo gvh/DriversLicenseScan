@@ -91,7 +91,9 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
 
     func found(code: String) {
-        print(code)
+        let dl = DriversLicense(rawString: code)
+        dl.parseDL()
+        dl.printDL()
     }
 
     override var prefersStatusBarHidden: Bool {
