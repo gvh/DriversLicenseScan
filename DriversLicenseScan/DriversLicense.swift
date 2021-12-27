@@ -17,6 +17,7 @@ class DriversLicense {
     var vehicleClass: String?
     var restrictions: String?
     var endorsements: String?
+
     var expirationDate: Date?  // MMDDCCYY or CCYYMMDD
     var familyName: String?
     var firstName: String?
@@ -42,7 +43,7 @@ class DriversLicense {
     var HairColor: String?
     var PlaceOfBirth: String?
     var AuditInformation: String?
-    var ParseInventoryControlNumber: String?
+    var InventoryControlNumber: String?
     var AKAFamilyName: String?
     var AKAFirstName: String?
     var AKASuffixName: String?
@@ -104,12 +105,11 @@ class DriversLicense {
         parseMaster["DDE"] = parseFamilyNameTruncationFlag  // T/N/U
         parseMaster["DDF"] = parseFirstNameTruncationFlag   // T/N/U
         parseMaster["DDG"] = parseMiddleNameTruncationFlag  // T/N/U
-
         parseMaster["DAH"] = parseAddressStreet2
         parseMaster["DAZ"] = parseHairColor
         parseMaster["DCI"] = parsePlaceOfBirth
         parseMaster["DCJ"] = parseAuditInformation
-        parseMaster["DCK"] = parseParseInventoryControlNumber
+        parseMaster["DCK"] = parseInventoryControlNumber
         parseMaster["DBN"] = parseAKAFamilyName
         parseMaster["DBG"] = parseAKAFirstName
         parseMaster["DBS"] = parseAKASuffixName
@@ -296,8 +296,8 @@ class DriversLicense {
         self.AuditInformation = dataLine
     }
 
-    private func parseParseInventoryControlNumber(dataLine: String) {
-        self.ParseInventoryControlNumber = dataLine
+    private func parseInventoryControlNumber(dataLine: String) {
+        self.InventoryControlNumber = dataLine
     }
 
     private func parseAKAFamilyName(dataLine: String) {
@@ -398,4 +398,6 @@ class DriversLicense {
         // 1
         self.VeteranIndicator = dataLine == "1"
     }
+
+
 }

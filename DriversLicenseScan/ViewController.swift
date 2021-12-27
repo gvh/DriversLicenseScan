@@ -85,9 +85,13 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
+            if (captureSession?.isRunning == true) {
+                captureSession.stopRunning()
+            }
+        } else {
+            dismiss(animated: true)
         }
 
-        dismiss(animated: true)
     }
 
     func found(code: String) {
