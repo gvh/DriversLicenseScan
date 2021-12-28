@@ -10,7 +10,6 @@ import UIKit
 class LicenseCollection: NSObject {
     var driversLicense: DriversLicense
     var driversLicenseDisplay: DriversLicenseDisplay
-
     private var licenseItems: [LicenseItem] = []
 
     let themeColor = UIColor(red: 27.0/255.0, green: 65.0/255.0, blue: 93.0/255.0, alpha: 1.0)
@@ -32,10 +31,8 @@ class LicenseCollection: NSObject {
         self.viewController = viewController
         self.driversLicense = driversLicense
         self.driversLicenseDisplay = DriversLicenseDisplay(self.driversLicense)
-
-        self.licenseItems.removeAll()
-        self.licenseItems.append(contentsOf: driversLicenseDisplay.items)
-        self.licenseItems.sort(by: { $0.sequence < $1.sequence })
+        super.init()
+        redisplayViewers()
     }
 
     func redisplayViewers(animatingDifferences: Bool = true) {
@@ -54,6 +51,7 @@ class LicenseCollection: NSObject {
         layoutConfig.backgroundColor = themeColor
         layoutConfig.showsSeparators = false
         layoutConfig.headerMode = .none
+
         let listLayout = UICollectionViewCompositionalLayout.list(using: layoutConfig)
         return listLayout
     }

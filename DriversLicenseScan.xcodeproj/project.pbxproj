@@ -14,6 +14,7 @@
 		5F7ACC9D2779788500092728 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7ACC9C2779788400092728 /* DateExtension.swift */; };
 		5F7ACC9F2779E52500092728 /* LicenseCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7ACC9E2779E52500092728 /* LicenseCollection.swift */; };
 		5F7ACCA12779E59A00092728 /* LicenseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F7ACCA02779E59900092728 /* LicenseItem.swift */; };
+		5F84A696277AA38D00516065 /* DriversLicenseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F84A695277AA38D00516065 /* DriversLicenseParser.swift */; };
 		5F9270912603881F00908B16 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9270902603881F00908B16 /* AppDelegate.swift */; };
 		5F9270932603881F00908B16 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9270922603881F00908B16 /* SceneDelegate.swift */; };
 		5F9270952603881F00908B16 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9270942603881F00908B16 /* ViewController.swift */; };
@@ -30,6 +31,7 @@
 		5F7ACC9C2779788400092728 /* DateExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
 		5F7ACC9E2779E52500092728 /* LicenseCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseCollection.swift; sourceTree = "<group>"; };
 		5F7ACCA02779E59900092728 /* LicenseItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseItem.swift; sourceTree = "<group>"; };
+		5F84A695277AA38D00516065 /* DriversLicenseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriversLicenseParser.swift; sourceTree = "<group>"; };
 		5F92708D2603881F00908B16 /* DriversLicenseScan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DriversLicenseScan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F9270902603881F00908B16 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F9270922603881F00908B16 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +53,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F15C732277B04B700D2B438 /* app */ = {
+			isa = PBXGroup;
+			children = (
+				5F9270902603881F00908B16 /* AppDelegate.swift */,
+				5F9270922603881F00908B16 /* SceneDelegate.swift */,
+			);
+			path = app;
+			sourceTree = "<group>";
+		};
+		5F15C733277B04C300D2B438 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5F7ACC9C2779788400092728 /* DateExtension.swift */,
+				5F7ACC9827795D2900092728 /* StringExtension.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		5F15C734277B04E200D2B438 /* collections */ = {
+			isa = PBXGroup;
+			children = (
+				5F7ACC9E2779E52500092728 /* LicenseCollection.swift */,
+			);
+			path = collections;
+			sourceTree = "<group>";
+		};
+		5F15C735277B050200D2B438 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				5F9270942603881F00908B16 /* ViewController.swift */,
+				5F7ACC962778FCE200092728 /* DriversLicenseViewController.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		5F15C736277B051E00D2B438 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				5F84A695277AA38D00516065 /* DriversLicenseParser.swift */,
+				5F7ACC9427787D7E00092728 /* DriversLicense.swift */,
+				5F7ACC9A2779772100092728 /* DriversLicenseDisplay.swift */,
+				5F7ACCA02779E59900092728 /* LicenseItem.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
 		5F9270842603881F00908B16 = {
 			isa = PBXGroup;
 			children = (
@@ -70,20 +118,15 @@
 		5F92708F2603881F00908B16 /* DriversLicenseScan */ = {
 			isa = PBXGroup;
 			children = (
-				5F7ACC9C2779788400092728 /* DateExtension.swift */,
-				5F7ACC9827795D2900092728 /* StringExtension.swift */,
-				5F9270902603881F00908B16 /* AppDelegate.swift */,
-				5F9270922603881F00908B16 /* SceneDelegate.swift */,
-				5F9270942603881F00908B16 /* ViewController.swift */,
+				5F15C733277B04C300D2B438 /* extensions */,
+				5F15C732277B04B700D2B438 /* app */,
+				5F15C736277B051E00D2B438 /* models */,
+				5F15C734277B04E200D2B438 /* collections */,
+				5F15C735277B050200D2B438 /* views */,
 				5F9270962603881F00908B16 /* Main.storyboard */,
-				5F9270992603882000908B16 /* Assets.xcassets */,
 				5F92709B2603882000908B16 /* LaunchScreen.storyboard */,
+				5F9270992603882000908B16 /* Assets.xcassets */,
 				5F92709E2603882000908B16 /* Info.plist */,
-				5F7ACC9427787D7E00092728 /* DriversLicense.swift */,
-				5F7ACC962778FCE200092728 /* DriversLicenseViewController.swift */,
-				5F7ACC9A2779772100092728 /* DriversLicenseDisplay.swift */,
-				5F7ACC9E2779E52500092728 /* LicenseCollection.swift */,
-				5F7ACCA02779E59900092728 /* LicenseItem.swift */,
 			);
 			path = DriversLicenseScan;
 			sourceTree = "<group>";
@@ -160,6 +203,7 @@
 			files = (
 				5F7ACCA12779E59A00092728 /* LicenseItem.swift in Sources */,
 				5F7ACC9B2779772100092728 /* DriversLicenseDisplay.swift in Sources */,
+				5F84A696277AA38D00516065 /* DriversLicenseParser.swift in Sources */,
 				5F7ACC9D2779788500092728 /* DateExtension.swift in Sources */,
 				5F9270952603881F00908B16 /* ViewController.swift in Sources */,
 				5F7ACC9527787D7E00092728 /* DriversLicense.swift in Sources */,

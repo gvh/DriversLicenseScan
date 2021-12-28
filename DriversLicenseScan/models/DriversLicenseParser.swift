@@ -1,88 +1,22 @@
 //
-//  DriversLicense.swift
+//  DriversLicenseParser.swift
 //  DriversLicenseScan
 //
-//  Created by Gardner von Holt on 12/26/21.
+//  Created by Gardner von Holt on 12/27/21.
 //
 
 import Foundation
 
-enum TruncateFlag: String {
-    case Truncated = "T"
-    case NotTruncated = "N"
-    case Unknown = "U"
-}
+class DriversLicenseParser {
 
-class DriversLicense {
-    var vehicleClass: String?
-    var restrictions: String?
-    var endorsements: String?
-
-    var expirationDate: Date?  // MMDDCCYY or CCYYMMDD
-    var familyName: String?
-    var firstName: String?
-    var middleNames: String? // comma sep
-
-    var DocumentIssueDate: Date? // MMDDCCYY or CCYYMMDD
-    var DateOfBirth: Date? // MMDDCCYY or CCYYMMDD
-    var Gender: String?
-    var EyeColor: String?
-    var Height: String? // nnn in or cm
-    var AddressStreet: String?
-    var AddressCity: String?
-    var AddressJurisdictionCode: String?
-    var AddressPostalCode: String?
-    var CustomerIDNumber: String?
-    var DocumentDiscriminator: String?
-    var countryId: String?
-    var FamilyNameTruncationFlag: TruncateFlag?  // T/N/U
-    var FirstNameTruncationFlag: TruncateFlag?  // T/N/U
-    var MiddleNameTruncationFlag: TruncateFlag?  // T/N/U
-
-    var AddressStreet2: String?
-    var HairColor: String?
-    var PlaceOfBirth: String?
-    var AuditInformation: String?
-    var InventoryControlNumber: String?
-    var AKAFamilyName: String?
-    var AKAFirstName: String?
-    var AKASuffixName: String?
-    var NameSuffix: String?
-    var WeightRange: String?
-    var RaceEthniciy: String?
-    var StandardVehicleClassification: String?
-    var StandardEndorsementCode: String?
-    var StandardRestrictionCode: String?
-    var JurisdictionSpecificVehicleClassificationDescription: String?
-    var JurisdictionSpecificEndorsementCodeDescription: String?
-    var JurisdictionSpecificRestrictionCodeDescription: String?
-    var ComplianceType: String?
-    var CardRevisionDate: Date? // MMDDCCYY or CCYYMMDD
-    var HAZMATEndorsementExpirationDate: Date? // MMDDCCYY or CCYYMMDD
-    var LimitedDurationDocumentIndicator: String?
-    var WeightPounds: Int?
-    var WeightKilograms: Int?
-    var Under18UntilDate: Date? // MMDDCCYY or CCYYMMDD
-    var Under19UntilDate: Date? // MMDDCCYY or CCYYMMDD
-    var Under21UntilDate: Date? // MMDDCCYY or CCYYMMDD
-    var OrganDonorIndicator: Bool? // 1
-    var VeteranIndicator: Bool? // 1
-
-    var rawDataLines: [Substring]
-    var rowCount: Int
+    var driversLicense: DriversLicense = DriversLicense()
     var parseMaster: [String: (String) -> Void] = [:]
 
-    init(rawString: String) {
-        rawDataLines = rawString.split(separator: "\n")
-        rowCount = rawDataLines.count
-
+    init() {
         registerParsers()
-
-        print(rawString)
-        print("\(rowCount) lines")
     }
 
-    func registerParsers() {
+    private func registerParsers() {
         parseMaster["DCA"] = parseVehicleClass
         parseMaster["DCB"] = parseRestrictions
         parseMaster["DCD"] = parseEndorsements
@@ -135,26 +69,19 @@ class DriversLicense {
         parseMaster["DDL"] = parseVeteranIndicator // 1
     }
 
-    func parseDL() {
+    func parse(rawString: String) -> DriversLicense {
+        self.driversLicense = DriversLicense()
+        var rawDataLines: [Substring] = rawString.split(separator: "\n")
+        let rowCount = rawDataLines.count
         for rawDataLine in rawDataLines {
             if checkForCodeLine(String(rawDataLine)) {
-                parseDL(rawDataLine)
+                parseLine(rawDataLine)
             }
         }
+        return driversLicense
     }
 
-    private func checkForCodeLine(_ rawDataLine: String) -> Bool {
-        if rawDataLine.count < 4 {
-            print("raw data line count < 4")
-            return false
-        }
-
-        let charSeq1 = rawDataLine.prefix(1)
-        let char1 = String(charSeq1)
-        return char1 == "D"
-    }
-
-    private func parseDL(_ rawDataLine: Substring) {
+    private func parseLine(_ rawDataLine: Substring) {
         let rawDataLineString: String = String(rawDataLine)
         let codeStart = rawDataLineString.startIndex
         let codeEnd = rawDataLineString.index(rawDataLineString.startIndex, offsetBy: 2)
@@ -174,6 +101,17 @@ class DriversLicense {
         }
     }
 
+    private func checkForCodeLine(_ rawDataLine: String) -> Bool {
+        if rawDataLine.count < 4 {
+            print("raw data line count < 4")
+            return false
+        }
+
+        let charSeq1 = rawDataLine.prefix(1)
+        let char1 = String(charSeq1)
+        return char1 == "D"
+    }
+
     private func parseDateString(dataLine: String) -> Date {
         let result = Date()
         return result
@@ -185,219 +123,218 @@ class DriversLicense {
     }
 
     private func parseVehicleClass(dataLine: String) {
-        self.vehicleClass = dataLine
+        driversLicense.vehicleClass = dataLine
     }
 
     private func parseRestrictions(dataLine: String) {
-        self.restrictions = dataLine
+        driversLicense.restrictions = dataLine
     }
 
     private func parseEndorsements(dataLine: String) {
-        self.endorsements = dataLine
+        driversLicense.endorsements = dataLine
     }
 
     private func parseExpirationDate(dataLine: String) {
-        self.expirationDate = parseDateString(dataLine: dataLine)
+        driversLicense.expirationDate = parseDateString(dataLine: dataLine)
         // MMDDCCYY or CCYYMMDD
     }
 
     private func parseFamilyName(dataLine: String) {
-        self.familyName = dataLine
+        driversLicense.familyName = dataLine
     }
 
     private func parseFirstName(dataLine: String) {
-        self.firstName = dataLine
+        driversLicense.firstName = dataLine
     }
 
     private func parseMiddleNames(dataLine: String) {
         // comma sep
-        self.middleNames = dataLine
+        driversLicense.middleNames = dataLine
     }
 
     private func parseDocumentIssueDate(dataLine: String) {
         // MMDDCCYY or CCYYMMDD
-        self.DocumentIssueDate = parseDateString(dataLine: dataLine)
+        driversLicense.DocumentIssueDate = parseDateString(dataLine: dataLine)
     }
 
     private func parseDateOfBirth(dataLine: String) {
-        self.DateOfBirth = parseDateString(dataLine: dataLine)
+        driversLicense.DateOfBirth = parseDateString(dataLine: dataLine)
         // MMDDCCYY or CCYYMMDD
     }
 
     private func parseGender(dataLine: String) {
-        self.DateOfBirth = parseDateString(dataLine: dataLine)
+        driversLicense.DateOfBirth = parseDateString(dataLine: dataLine)
     }
 
     private func parseEyeColor(dataLine: String) {
-        self.EyeColor = dataLine
+        driversLicense.EyeColor = dataLine
     }
 
     private func parseHeight(dataLine: String) {
-        self.Height = dataLine
+        driversLicense.Height = dataLine
         // nnn in or cm
     }
 
     private func parseAddressStreet(dataLine: String) {
-        self.AddressStreet = dataLine
+        driversLicense.AddressStreet = dataLine
     }
 
     private func parseAddressCity(dataLine: String) {
-        self.AddressCity = dataLine
+        driversLicense.AddressCity = dataLine
     }
 
     private func parseAddressJurisdictionCode(dataLine: String) {
-        self.AddressJurisdictionCode = dataLine
+        driversLicense.AddressJurisdictionCode = dataLine
     }
 
     private func parseAddressPostalCode(dataLine: String) {
-        self.AddressPostalCode = dataLine
+        driversLicense.AddressPostalCode = dataLine
     }
 
     private func parseCustomerIDNumber(dataLine: String) {
-        self.CustomerIDNumber = dataLine
+        driversLicense.CustomerIDNumber = dataLine
     }
 
     private func parseDocumentDiscriminator(dataLine: String) {
-        self.DocumentDiscriminator = dataLine
+        driversLicense.DocumentDiscriminator = dataLine
     }
 
     private func parseCountryId(dataLine: String) {
-        self.countryId = dataLine
+        driversLicense.countryId = dataLine
     }
 
     private func parseFamilyNameTruncationFlag(dataLine: String) {
         // T/N/U
-        self.FamilyNameTruncationFlag = parseTruncationFlag(dataLine: dataLine)
+        driversLicense.FamilyNameTruncationFlag = parseTruncationFlag(dataLine: dataLine)
     }
 
     private func parseFirstNameTruncationFlag(dataLine: String) {
         // T/N/U
-        self.FirstNameTruncationFlag = parseTruncationFlag(dataLine: dataLine)
+        driversLicense.FirstNameTruncationFlag = parseTruncationFlag(dataLine: dataLine)
     }
 
     private func parseMiddleNameTruncationFlag(dataLine: String) {
         // T/N/U
-        self.FirstNameTruncationFlag = parseTruncationFlag(dataLine: dataLine)
+        driversLicense.FirstNameTruncationFlag = parseTruncationFlag(dataLine: dataLine)
     }
 
     private func parseAddressStreet2(dataLine: String) {
-        self.AddressStreet2 = dataLine
+        driversLicense.AddressStreet2 = dataLine
     }
 
     private func parseHairColor(dataLine: String) {
-        self.HairColor = dataLine
+        driversLicense.HairColor = dataLine
     }
 
     private func parsePlaceOfBirth(dataLine: String) {
-        self.PlaceOfBirth = dataLine
+        driversLicense.PlaceOfBirth = dataLine
     }
 
     private func parseAuditInformation(dataLine: String) {
-        self.AuditInformation = dataLine
+        driversLicense.AuditInformation = dataLine
     }
 
     private func parseInventoryControlNumber(dataLine: String) {
-        self.InventoryControlNumber = dataLine
+        driversLicense.InventoryControlNumber = dataLine
     }
 
     private func parseAKAFamilyName(dataLine: String) {
-        self.AKAFamilyName = dataLine
+        driversLicense.AKAFamilyName = dataLine
     }
 
     private func parseAKAFirstName(dataLine: String) {
-        self.AKAFamilyName = dataLine
+        driversLicense.AKAFamilyName = dataLine
     }
 
     private func parseAKASuffixName(dataLine: String) {
-        self.AKASuffixName = dataLine
+        driversLicense.AKASuffixName = dataLine
     }
 
     private func parseNameSuffix(dataLine: String) {
-        self.NameSuffix = dataLine
+        driversLicense.NameSuffix = dataLine
     }
 
     private func parseWeightRange(dataLine: String) {
-        self.WeightRange = dataLine
+        driversLicense.WeightRange = dataLine
     }
 
     private func parseRaceEthniciy(dataLine: String) {
-        self.RaceEthniciy = dataLine
+        driversLicense.RaceEthniciy = dataLine
     }
 
     private func parseStandardVehicleClassification(dataLine: String) {
-        self.StandardVehicleClassification = dataLine
+        driversLicense.StandardVehicleClassification = dataLine
     }
 
     private func parseStandardEndorsementCode(dataLine: String) {
-        self.StandardEndorsementCode = dataLine
+        driversLicense.StandardEndorsementCode = dataLine
     }
 
     private func parseStandardRestrictionCode(dataLine: String) {
-        self.StandardRestrictionCode = dataLine
+        driversLicense.StandardRestrictionCode = dataLine
     }
 
     private func parseJurisdictionSpecificVehicleClassificationDescription(dataLine: String) {
-        self.JurisdictionSpecificVehicleClassificationDescription = dataLine
+        driversLicense.JurisdictionSpecificVehicleClassificationDescription = dataLine
     }
 
     private func parseJurisdictionSpecificEndorsementCodeDescription(dataLine: String) {
-        self.JurisdictionSpecificEndorsementCodeDescription = dataLine
+        driversLicense.JurisdictionSpecificEndorsementCodeDescription = dataLine
     }
 
     private func parseJurisdictionSpecificRestrictionCodeDescription(dataLine: String) {
-        self.JurisdictionSpecificRestrictionCodeDescription = dataLine
+        driversLicense.JurisdictionSpecificRestrictionCodeDescription = dataLine
     }
 
     private func parseComplianceType(dataLine: String) {
-        self.ComplianceType = dataLine
+        driversLicense.ComplianceType = dataLine
     }
 
     private func parseCardRevisionDate(dataLine: String) {
         // MMDDCCYY or CCYYMMDD
-        self.CardRevisionDate = parseDateString(dataLine: dataLine)
+        driversLicense.CardRevisionDate = parseDateString(dataLine: dataLine)
     }
 
     private func parseHAZMATEndorsementExpirationDate(dataLine: String) {
         // MMDDCCYY or CCYYMMDD
-        self.HAZMATEndorsementExpirationDate = parseDateString(dataLine: dataLine)
+        driversLicense.HAZMATEndorsementExpirationDate = parseDateString(dataLine: dataLine)
     }
 
     private func parseLimitedDurationDocumentIndicator(dataLine: String) {
-        self.LimitedDurationDocumentIndicator = dataLine
+        driversLicense.LimitedDurationDocumentIndicator = dataLine
     }
 
     private func parseWeightPounds(dataLine: String) {
-        self.WeightPounds = Int(dataLine)
+        driversLicense.WeightPounds = Int(dataLine)
     }
 
     private func parseWeightKilograms(dataLine: String) {
-        self.WeightKilograms = Int(dataLine)
+        driversLicense.WeightKilograms = Int(dataLine)
     }
 
     private func parseUnder18UntilDate(dataLine: String) {
         // MMDDCCYY or CCYYMMDD
-        self.Under18UntilDate = parseDateString(dataLine: dataLine)
+        driversLicense.Under18UntilDate = parseDateString(dataLine: dataLine)
     }
 
     private func parseUnder19UntilDate(dataLine: String) {
         // MMDDCCYY or CCYYMMDD
-        self.Under19UntilDate = parseDateString(dataLine: dataLine)
+        driversLicense.Under19UntilDate = parseDateString(dataLine: dataLine)
     }
 
     private func parseUnder21UntilDate(dataLine: String) {
         // MMDDCCYY or CCYYMMDD
-        self.Under21UntilDate = parseDateString(dataLine: dataLine)
+        driversLicense.Under21UntilDate = parseDateString(dataLine: dataLine)
     }
 
     private func parseOrganDonorIndicator(dataLine: String) {
         // 1
-        self.OrganDonorIndicator = dataLine == "1"
+        driversLicense.OrganDonorIndicator = dataLine == "1"
     }
 
     private func parseVeteranIndicator(dataLine: String) {
         // 1
-        self.VeteranIndicator = dataLine == "1"
+        driversLicense.VeteranIndicator = dataLine == "1"
     }
-
 
 }

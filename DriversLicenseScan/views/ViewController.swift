@@ -95,9 +95,9 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     }
 
     func found(code: String) {
-        let dl = DriversLicense(rawString: code)
-        dl.parseDL()
-        performSegue(withIdentifier: "ShowDriversLicense", sender: dl)
+        let parser = DriversLicenseParser()
+        let driversLicense = parser.parse(rawString: code)
+        performSegue(withIdentifier: "ShowDriversLicense", sender: driversLicense)
     }
 
     override var prefersStatusBarHidden: Bool {
